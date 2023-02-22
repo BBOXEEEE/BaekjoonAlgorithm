@@ -1,0 +1,51 @@
+import java.util.Scanner;
+
+public class Java10757 {
+	public static void main(String[] args) throws Exception {
+		Scanner in = new Scanner(System.in);
+		String strA = new StringBuilder(in.next()).reverse().toString();
+		String strB = new StringBuilder(in.next()).reverse().toString();
+		int length = Math.max(strA.length(), strB.length());
+		int[] A = new int[length+1];
+		int[] B = new int[length+1];
+		for(int i=0; i<strA.length(); ++i)
+			A[i] = strA.charAt(i)-'0';
+		for(int i=0; i<strB.length(); ++i)
+			B[i] = strB.charAt(i)-'0';
+		for(int i=0; i<length; ++i) {
+			int value = A[i]+B[i];
+			A[i] = value%10;
+			A[i+1] += value/10;
+		}
+		if(A[length]!=0) System.out.print(A[length]);
+		for(int i=length-1; i>=0; --i)
+			System.out.print(A[i]);
+		in.close();
+	}
+}
+
+/* ver.2
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) throws Exception {
+		Scanner in = new Scanner(System.in);
+		String A = new StringBuilder(in.next()).reverse().toString();
+		String B = new StringBuilder(in.next()).reverse().toString();
+		if(A.length()>B.length())
+			B = B.concat("0".repeat(A.length()-B.length()));
+		else
+			A = A.concat("0".repeat(B.length()-A.length()));
+		StringBuilder result = new StringBuilder();
+		int carry = 0;
+		for(int i=0; i<A.length(); ++i) {
+			int value = (A.charAt(i)-'0') + (B.charAt(i)-'0') + carry;
+			if(value>=10) carry=1;
+			else carry=0;
+			result.append(value%10);
+		} if(carry == 1) result.append(1);
+		System.out.println(result.reverse().toString());
+		in.close();
+	}
+}
+*/
